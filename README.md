@@ -2,9 +2,13 @@
 
 FlowFinder is a productivity app designed to help you easily find and maintain focus on your work using the Pomodoro Technique.
 
+## **What is the Pomodoro Technique?**
+
+The technique involves breaking your work into timed intervals, typically 25 minutes each, called "Pomodoros". During each Pomodoro, you focus on one specific task and work on it without interruptions or distractions. After the Pomodoro is complete, you take a short break of 5 minutes, then start another Pomodoro. After 4 Pomodoros, you take a longer break of 15-30 minutes. This cycle is repeated until your task is complete.
+
 ## **Features**
 
--   Customizable work sessions and break times to fit your individual needs.
+-   Customizable work sessions to fit your individual needs.
 -   Simple and intuitive interface that allows you to start and stop your work sessions with just a few taps.
 -   Helpful progress tracking to monitor your productivity and stay on track towards your goals.
 
@@ -24,4 +28,7 @@ Contributions are welcome! Please fork the repository and create a pull request.
 
 ## **Credits**
 
-FlowFinder was created by [Your Name Here] and is based on the Pomodoro Technique.
+FlowFinder was created by **Bradley Wilson**.
+
+-   <https://bwilsoncodes.com>
+-   <https://github.com/bwils35>
