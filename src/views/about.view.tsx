@@ -3,13 +3,17 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { colors } from "../utils/colors";
 import { spacing, fontSizes } from "../utils/sizes";
-import { Nav } from "../components/nav.component";
+import { RoundedButton } from "../components/rounded-button.component";
 
-export const About = () => {
+export const About = ({ navigation }: any) => {
 	return (
 		<>
 			<View style={styles.navContainer}>
-				<Nav />
+				<RoundedButton
+					size={40}
+					title="Back"
+					onPress={() => navigation.goBack()}
+				/>
 			</View>
 			<View style={styles.infoContainer}>
 				<View style={styles.titleContainer}>

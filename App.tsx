@@ -1,49 +1,20 @@
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, SafeAreaView, Platform } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 
-import { colors } from "./src/utils/colors";
-import { Focus } from "./src/views/focus.view";
-import { Timer } from "./src/views/timer.view";
-import { FocusHistory } from "./src/views/focus-history.view";
-import { About } from "./src/views/about.view";
+import ContextProvider from "./src/context/context";
+import { Screens } from "./src/components/navigation/screens";
+import { NavigationContainer } from "@react-navigation/native";
+import { SafeAreaView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
-	const [currentSubject, setCurrentSubject] = useState<string>("");
-	const [history, setHistory] = useState<string[]>([]);
-
-	const onSetCurrentSubject = (subject: string) => {
-		if (!subject.length) {
-			alert("Please enter a subject!");
-			return;
-		}
-		setCurrentSubject(subject);
-	};
-
 	return (
-		<SafeAreaView style={styles.container}>
-			{!currentSubject ? (
-				<>
-					{/* <Focus addSubject={onSetCurrentSubject} />
-					<FocusHistory history={history} /> */}
-					<About />
-				</>
-			) : (
-				<Timer
-					focusSubject={currentSubject}
-					onTimerEnd={(subject) => setHistory([...history, subject])}
-					clearSubject={() => setCurrentSubject("")}
-				/>
-			)}
-			<StatusBar style="auto" hidden={true} />
-		</SafeAreaView>
+		<ContextProvider>
+			<NavigationContainer>
+				<SafeAreaView style={{ flex: 1 }}>
+					<Screens />
+					<StatusBar style="auto" hidden={true} />
+				</SafeAreaView>
+			</NavigationContainer>
+		</ContextProvider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: colors.background,
-	},
-});

@@ -8,20 +8,30 @@ import { RoundedButton } from "../components/rounded-button.component";
 
 interface IFocusHistoryProps {
 	history: string[];
+	navigation: any;
 }
 
-export const FocusHistory = ({ history }: IFocusHistoryProps) => {
+export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 	if (!history || !history.length)
 		return (
-			<View style={styles.container}>
-				<Text style={styles.title}>
-					Click the plus button to find your flow!
-				</Text>
-			</View>
+			<>
+				<View style={styles.container}>
+					<Text style={styles.title}>
+						Click the plus button to find your flow!
+					</Text>
+				</View>
+				<View style={styles.aboutButton}>
+					<RoundedButton
+						size={50}
+						title="?"
+						onPress={() => navigation.navigate("About")}
+					/>
+				</View>
+			</>
 		);
 
 	const renderItem = ({ item }: any) => (
-		<Text style={styles.item}>- {item}</Text>
+		<Text style={styles.item}>{item}</Text>
 	);
 
 	return (
@@ -35,7 +45,13 @@ export const FocusHistory = ({ history }: IFocusHistoryProps) => {
 const styles = StyleSheet.create({
 	container: {
 		padding: spacing.lg,
-		flex: 1,
+		flex: 0.9,
+	},
+	aboutButton: {
+		padding: spacing.lg,
+		// justifyContent: "center",
+		alignItems: "center",
+		marginBottom: spacing.lg,
 	},
 	title: {
 		color: colors.black,
