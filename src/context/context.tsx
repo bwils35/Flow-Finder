@@ -7,6 +7,8 @@ export default function AppContext({ children }: any) {
 	const [currentSubject, setCurrentSubject] = useState<string>("");
 	const [history, setHistory] = useState<string[]>([]);
 	const [minutes, setMinutes] = useState<number>(5);
+	const [breakTime, setBreakTime] = useState(false);
+	const [progress, setProgress] = useState(1);
 
 	const state = {
 		subject,
@@ -17,6 +19,10 @@ export default function AppContext({ children }: any) {
 		setCurrentSubject,
 		setHistory,
 		setMinutes,
+		breakTime,
+		setBreakTime,
+		progress,
+		setProgress,
 	};
 
 	return <appContext.Provider value={state}>{children}</appContext.Provider>;

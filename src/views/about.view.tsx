@@ -71,18 +71,13 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: colors.black,
 	},
-	subtitleContainer: {
-		// alignItems: "center",
-		// paddingBotton: spacing.lg,
-	},
+	subtitleContainer: {},
 	subtitle: {
 		fontSize: fontSizes.md,
 		fontWeight: "bold",
 		color: colors.black,
 		paddingTop: spacing.md,
 		paddingLeft: spacing.md,
-		// paddingBottom: spacing.sm,
-		// textDecorationLine: "underline",
 	},
 	body: {
 		fontSize: fontSizes.md,

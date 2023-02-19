@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 import { colors } from "../utils/colors";
 import { fontSizes, spacing } from "../utils/sizes";
+import { appContext } from "../context/context";
 
 const minutesToMilliseconds = (min: number) => min * 1000 * 60;
 
@@ -13,7 +14,8 @@ export interface ICountdownProps {
 	minutes?: number;
 	isPaused: boolean;
 	onProgress: (progress: number) => void;
-	onEnd: (reset: () => void) => void;
+	onEnd: (setBreakTimer: () => void) => void;
+	onBreakEnd: (reset: () => void) => void;
 }
 
 export const Countdown = ({
@@ -21,18 +23,30 @@ export const Countdown = ({
 	isPaused,
 	onProgress,
 	onEnd,
+	onBreakEnd,
 }: ICountdownProps) => {
 	const interval = React.useRef(null);
 
 	const [milliseconds, setMilliseconds] = useState<number>(null);
 
+	const { breakTime } = React.useContext(appContext);
+
 	const reset = () => setMilliseconds(minutesToMilliseconds(minutes));
+
+	const setBreakTimer = () => {
+		setMilliseconds(minutesToMilliseconds(0.1));
+	};
 
 	const countDown = () => {
 		setMilliseconds((time) => {
-			if (time === 0) {
+			if (time === 0 && !breakTime) {
 				clearInterval(interval.current);
-				onEnd(reset);
+				onEnd(setBreakTimer);
+				return time;
+			}
+			if (time === 0 && breakTime) {
+				clearInterval(interval.current);
+				onBreakEnd(reset);
 				return time;
 			}
 			const timeLeft = time - 1000;
