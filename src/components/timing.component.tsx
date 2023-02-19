@@ -1,8 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-
-import { colors } from "../utils/colors";
-import { fontSizes, spacing } from "../utils/sizes";
+import { View, StyleSheet } from "react-native";
 
 import { RoundedButton } from "./rounded-button.component";
 

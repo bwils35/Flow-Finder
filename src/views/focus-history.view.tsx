@@ -38,6 +38,13 @@ export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 		<View style={styles.container}>
 			<Text style={styles.title}>Things we've focused on: </Text>
 			<FlatList data={history} renderItem={renderItem} />
+			<View style={styles.aboutButton}>
+				<RoundedButton
+					size={50}
+					title="?"
+					onPress={() => navigation.navigate("About")}
+				/>
+			</View>
 		</View>
 	);
 };
@@ -49,9 +56,9 @@ const styles = StyleSheet.create({
 	},
 	aboutButton: {
 		padding: spacing.lg,
-		// justifyContent: "center",
 		alignItems: "center",
 		marginBottom: spacing.lg,
+		flex: 0.001,
 	},
 	title: {
 		color: colors.black,

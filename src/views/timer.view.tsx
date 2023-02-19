@@ -21,11 +21,12 @@ interface ITimerProps {
 const ONE_SECOND_IN_MS = 1000;
 
 const PATTERN = [
-	ONE_SECOND_IN_MS * 1,
-	ONE_SECOND_IN_MS * 1,
-	ONE_SECOND_IN_MS * 1,
-	ONE_SECOND_IN_MS * 1,
-	ONE_SECOND_IN_MS * 1,
+	0.5 * ONE_SECOND_IN_MS,
+	1 * ONE_SECOND_IN_MS,
+	0.5 * ONE_SECOND_IN_MS,
+	1 * ONE_SECOND_IN_MS,
+	0.5 * ONE_SECOND_IN_MS,
+	1 * ONE_SECOND_IN_MS,
 ];
 
 export const Timer = ({
@@ -36,17 +37,33 @@ export const Timer = ({
 }: ITimerProps) => {
 	useKeepAwake();
 	const [isStarted, setIsStarted] = useState(false);
-	const [progress, setProgress] = useState(1);
 
-	const { minutes, setMinutes } = React.useContext(appContext);
+	const {
+		minutes,
+		setMinutes,
+		breakTime,
+		setBreakTime,
+		progress,
+		setProgress,
+	} = React.useContext(appContext);
 
-	const onEnd = (reset: () => void) => {
+	const onEnd = (setBreakTimer: () => void) => {
 		Vibration.vibrate(PATTERN);
+		setBreakTime(true);
 
 		setIsStarted(false);
 		setProgress(1);
-		reset();
+		setBreakTimer();
 		onTimerEnd(focusSubject, originalTime);
+	};
+
+	const onBreakEnd = (reset: () => void) => {
+		Vibration.vibrate(PATTERN);
+
+		setIsStarted(false);
+		setBreakTime(false);
+		setProgress(1);
+		reset();
 	};
 
 	const incrementTime = () => {
@@ -59,72 +76,131 @@ export const Timer = ({
 	};
 
 	return (
-		<View style={styles.container}>
-			<View style={styles.countdown}>
-				<Countdown
-					minutes={minutes}
-					isPaused={!isStarted}
-					onProgress={setProgress}
-					onEnd={onEnd}
-				/>
-				<View style={{ paddingTop: spacing.xxl }}>
-					<Text style={styles.title}>Focusing on:</Text>
-					<Text style={styles.task}>{focusSubject}</Text>
-				</View>
-			</View>
-
-			<View style={{ paddingTop: spacing.sm }}>
-				<ProgressBar
-					progress={progress}
-					style={styles.progress}
-					color={colors.black}
-				/>
-			</View>
-
-			{!isStarted && (
-				<View style={styles.timingWrapper}>
-					<Timing onChangeTime={setMinutes} />
-				</View>
-			)}
-
-			{!isStarted ? (
-				<View style={styles.buttonWrapper}>
-					<RoundedButton
-						title="- 5"
-						size={50}
-						onPress={decrementTime}
-					/>
-					<RoundedButton
-						title="Start"
-						onPress={() => setIsStarted(true)}
-					/>
-					<RoundedButton
-						title="+ 5"
-						size={50}
-						onPress={incrementTime}
-					/>
-				</View>
-			) : (
-				<>
-					<View style={styles.timingWrapper}></View>
-					<View style={styles.buttonWrapper}>
-						<RoundedButton
-							title="Pause"
-							onPress={() => setIsStarted(false)}
+		<>
+			{!breakTime ? (
+				<View style={styles.container}>
+					<View style={styles.countdown}>
+						<Countdown
+							minutes={minutes}
+							isPaused={!isStarted}
+							onProgress={setProgress}
+							onEnd={onEnd}
+							onBreakEnd={onBreakEnd}
+						/>
+						<View style={{ paddingTop: spacing.xxl }}>
+							<Text style={styles.title}>Focusing on:</Text>
+							<Text style={styles.task}>{focusSubject}</Text>
+						</View>
+					</View>
+					<View style={{ paddingTop: spacing.sm }}>
+						<ProgressBar
+							progress={progress}
+							style={styles.progress}
+							color={colors.black}
 						/>
 					</View>
-				</>
+					{!isStarted && (
+						<View style={styles.timingWrapper}>
+							<Timing onChangeTime={setMinutes} />
+						</View>
+					)}
+					{!isStarted ? (
+						<View style={styles.buttonWrapper}>
+							<RoundedButton
+								title="- 5"
+								size={50}
+								onPress={decrementTime}
+							/>
+							<RoundedButton
+								title="Start"
+								onPress={() => setIsStarted(true)}
+							/>
+							<RoundedButton
+								title="+ 5"
+								size={50}
+								onPress={incrementTime}
+							/>
+						</View>
+					) : (
+						<>
+							<View style={styles.timingWrapper}></View>
+							<View style={styles.buttonWrapper}>
+								<RoundedButton
+									title="Pause"
+									onPress={() => setIsStarted(false)}
+								/>
+							</View>
+						</>
+					)}
+					<View style={styles.clearSubjectWrapper}>
+						<RoundedButton
+							size={50}
+							title="Back"
+							onPress={() => {
+								navigation.goBack();
+							}}
+						/>
+					</View>
+				</View>
+			) : (
+				<View style={styles.container}>
+					<View style={styles.countdown}>
+						<Countdown
+							minutes={5}
+							isPaused={!isStarted}
+							onProgress={setProgress}
+							onEnd={onEnd}
+							onBreakEnd={onBreakEnd}
+						/>
+						<View style={{ paddingTop: spacing.xxl }}>
+							<Text style={styles.title}>Completed: </Text>
+							<Text style={styles.task}>{focusSubject}</Text>
+						</View>
+					</View>
+					<View style={{ paddingTop: spacing.sm }}>
+						<ProgressBar
+							progress={progress}
+							style={styles.progress}
+							color={colors.black}
+						/>
+					</View>
+					{!isStarted && (
+						<View style={styles.timingWrapper}>
+							<Text style={styles.title}>
+								Start a 5 minute break?
+							</Text>
+						</View>
+					)}
+					{!isStarted ? (
+						<View style={styles.buttonWrapper}>
+							<RoundedButton
+								title="Start"
+								onPress={() => setIsStarted(true)}
+							/>
+						</View>
+					) : (
+						<>
+							<View style={styles.timingWrapper}></View>
+							<View style={styles.buttonWrapper}>
+								<RoundedButton
+									title="Pause"
+									onPress={() => setIsStarted(false)}
+								/>
+							</View>
+						</>
+					)}
+					<View style={styles.clearSubjectWrapper}>
+						<RoundedButton
+							size={50}
+							title="Back"
+							onPress={() => {
+								setBreakTime(false);
+							}}
+						/>
+					</View>
+				</View>
 			)}
-			<View style={styles.clearSubjectWrapper}>
-				<RoundedButton
-					size={50}
-					title="Back"
-					onPress={() => {
-						navigation.goBack();
-					}}
-				/>
-			</View>
-		</View>
+		</>
 	);
 };
 

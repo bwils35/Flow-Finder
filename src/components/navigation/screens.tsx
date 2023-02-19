@@ -11,15 +11,8 @@ import { appContext } from "../../context/context";
 const Stack = createNativeStackNavigator();
 
 export const Screens = () => {
-	const {
-		subject,
-		currentSubject,
-		history,
-		setSubject,
-		setCurrentSubject,
-		setHistory,
-		minutes,
-	} = useContext(appContext);
+	const { currentSubject, history, setHistory, minutes } =
+		useContext(appContext);
 
 	return (
 		<Stack.Navigator
