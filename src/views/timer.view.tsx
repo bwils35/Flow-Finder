@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	Vibration,
-	TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, Vibration } from "react-native";
 import { ProgressBar } from "react-native-paper";
 import { useKeepAwake } from "expo-keep-awake";
 
@@ -15,11 +9,13 @@ import { fontSizes, spacing } from "../utils/sizes";
 import { Countdown } from "../components/countdown.component";
 import { RoundedButton } from "../components/rounded-button.component";
 import { Timing } from "../components/timing.component";
+import { appContext } from "../context/context";
 
 interface ITimerProps {
 	focusSubject: string;
-	clearSubject: () => void;
-	onTimerEnd: (subject: string) => void;
+	onTimerEnd: (subject: string, originalTime: number) => void;
+	navigation: any;
+	originalTime: number;
 }
 
 const ONE_SECOND_IN_MS = 1000;
@@ -33,14 +29,16 @@ const PATTERN = [
 ];
 
 export const Timer = ({
+	originalTime,
 	focusSubject,
-	clearSubject,
 	onTimerEnd,
+	navigation,
 }: ITimerProps) => {
 	useKeepAwake();
 	const [isStarted, setIsStarted] = useState(false);
 	const [progress, setProgress] = useState(1);
-	const [minutes, setMinutes] = useState<number>(5);
+
+	const { minutes, setMinutes } = React.useContext(appContext);
 
 	const onEnd = (reset: () => void) => {
 		Vibration.vibrate(PATTERN);
@@ -48,7 +46,7 @@ export const Timer = ({
 		setIsStarted(false);
 		setProgress(1);
 		reset();
-		onTimerEnd(focusSubject);
+		onTimerEnd(focusSubject, originalTime);
 	};
 
 	const incrementTime = () => {
@@ -118,7 +116,13 @@ export const Timer = ({
 				</>
 			)}
 			<View style={styles.clearSubjectWrapper}>
-				<RoundedButton size={50} title="Back" onPress={clearSubject} />
+				<RoundedButton
+					size={50}
+					title="Back"
+					onPress={() => {
+						navigation.goBack();
+					}}
+				/>
 			</View>
 		</View>
 	);
