@@ -1,10 +1,9 @@
 import React, { useContext, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { TextInput } from "react-native-paper";
 
 import { colors } from "../utils/colors";
 import { spacing } from "../utils/sizes";
-import { RoundedButton } from "../components/rounded-button.component";
 import { useIsFocused } from "@react-navigation/native";
 import { appContext } from "../context/context";
 
@@ -38,17 +37,19 @@ export const Focus = ({ navigation }: IFocusProps) => {
 						activeOutlineColor={colors.black}
 					/>
 					<View style={styles.button}>
-						<RoundedButton
-							title="+"
-							size={40}
+						<TouchableOpacity
 							onPress={() => {
 								if (!subject)
 									return alert("Please enter a subject!");
 								setCurrentSubject(subject);
 								navigation.navigate("Timer");
 							}}
-							mode="outlined"
-						/>
+						>
+							<Image
+								source={require("../../assets/icons/plus.png")}
+								style={{ width: 40, height: 40 }}
+							/>
+						</TouchableOpacity>
 					</View>
 				</View>
 			</View>

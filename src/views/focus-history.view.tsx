@@ -1,10 +1,15 @@
 import React from "react";
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import {
+	Text,
+	View,
+	StyleSheet,
+	FlatList,
+	TouchableOpacity,
+	Image,
+} from "react-native";
 
 import { colors } from "../utils/colors";
 import { fontSizes, spacing } from "../utils/sizes";
-
-import { RoundedButton } from "../components/rounded-button.component";
 
 interface IFocusHistoryProps {
 	history: string[];
@@ -21,11 +26,11 @@ export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 					</Text>
 				</View>
 				<View style={styles.aboutButton}>
-					<RoundedButton
-						size={50}
-						title="back"
-						onPress={() => navigation.goBack()}
-					/>
+					<TouchableOpacity onPress={() => navigation.goBack()}>
+						<Image
+							source={require("../../assets/icons/back-arrow.png")}
+						/>
+					</TouchableOpacity>
 				</View>
 			</>
 		);
@@ -39,11 +44,11 @@ export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 			<Text style={styles.title}>Things we've focused on: </Text>
 			<FlatList data={history} renderItem={renderItem} />
 			<View style={styles.aboutButton}>
-				<RoundedButton
-					size={50}
-					title="back"
-					onPress={() => navigation.goBack()}
-				/>
+				<TouchableOpacity onPress={() => navigation.goBack()}>
+					<Image
+						source={require("../../assets/icons/back-arrow.png")}
+					/>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);

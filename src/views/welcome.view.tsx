@@ -1,7 +1,6 @@
 import React from "react";
-import { View, StyleSheet, Text, ImageBackground } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { RoundedButton } from "../components/rounded-button.component";
-import { useNavigation } from "@react-navigation/native";
 import { colors } from "../utils/colors";
 import { spacing } from "../utils/sizes";
 
@@ -9,12 +8,16 @@ export const Home = ({ navigation }: any) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.titleContainer}>
-				<Text style={styles.title}>Welcome to Flow Finder</Text>
+				<Text style={styles.title}>Flow Finder</Text>
+				<Image
+					source={require("../../assets/icons/flow.png")}
+					style={styles.image}
+				/>
 			</View>
 			<View style={styles.inputContainer}>
 				<View style={styles.buttonContainer}>
 					<RoundedButton
-						title="Let's focus"
+						title="Get Started"
 						size={150}
 						onPress={() => {
 							navigation.navigate("Main");
@@ -24,11 +27,13 @@ export const Home = ({ navigation }: any) => {
 					/>
 				</View>
 				<View style={styles.buttonContainer}>
-					<RoundedButton
-						size={50}
-						title="?"
+					<TouchableOpacity
 						onPress={() => navigation.navigate("About")}
-					/>
+					>
+						<Image
+							source={require("../../assets/icons/info.png")}
+						/>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>
@@ -42,8 +47,7 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	titleContainer: {
-		marginBottom: spacing.xxxl,
-		// flex: 0.1,
+		alignItems: "center",
 	},
 	title: {
 		fontSize: spacing.lg,
@@ -55,8 +59,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 	},
 	buttonContainer: {
-		// padding: spacing.lg,
 		alignItems: "center",
 		marginBottom: spacing.lg,
+	},
+	image: {
+		marginTop: spacing.xl,
+		marginBottom: spacing.xl,
 	},
 });
