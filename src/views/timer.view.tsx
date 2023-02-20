@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Vibration } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	Vibration,
+	TouchableOpacity,
+	Image,
+} from "react-native";
 import { ProgressBar } from "react-native-paper";
 import { useKeepAwake } from "expo-keep-awake";
 
@@ -133,13 +140,11 @@ export const Timer = ({
 						</>
 					)}
 					<View style={styles.clearSubjectWrapper}>
-						<RoundedButton
-							size={50}
-							title="Back"
-							onPress={() => {
-								navigation.goBack();
-							}}
-						/>
+						<TouchableOpacity onPress={() => navigation.goBack()}>
+							<Image
+								source={require("../../assets/icons/back-arrow.png")}
+							/>
+						</TouchableOpacity>
 					</View>
 				</View>
 			) : (
@@ -190,13 +195,11 @@ export const Timer = ({
 						</>
 					)}
 					<View style={styles.clearSubjectWrapper}>
-						<RoundedButton
-							size={50}
-							title="Back"
-							onPress={() => {
-								setBreakTime(false);
-							}}
-						/>
+						<TouchableOpacity onPress={() => navigation.goBack()}>
+							<Image
+								source={require("../../assets/icons/back-arrow.png")}
+							/>
+						</TouchableOpacity>
 					</View>
 				</View>
 			)}
