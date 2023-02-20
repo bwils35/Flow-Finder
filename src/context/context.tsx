@@ -9,6 +9,8 @@ export default function AppContext({ children }: any) {
 	const [minutes, setMinutes] = useState<number>(5);
 	const [breakTime, setBreakTime] = useState(false);
 	const [progress, setProgress] = useState(1);
+	const [milliseconds, setMilliseconds] = useState<number>(null);
+	const [isStarted, setIsStarted] = useState(false);
 
 	const state = {
 		subject,
@@ -23,6 +25,10 @@ export default function AppContext({ children }: any) {
 		setBreakTime,
 		progress,
 		setProgress,
+		milliseconds,
+		setMilliseconds,
+		isStarted,
+		setIsStarted,
 	};
 
 	return <appContext.Provider value={state}>{children}</appContext.Provider>;

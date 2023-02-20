@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
 	View,
 	Text,
@@ -43,7 +43,8 @@ export const Timer = ({
 	navigation,
 }: ITimerProps) => {
 	useKeepAwake();
-	const [isStarted, setIsStarted] = useState(false);
+
+	const { isStarted, setIsStarted } = useContext(appContext);
 
 	const {
 		minutes,
@@ -81,6 +82,15 @@ export const Timer = ({
 		if (minutes === 5) return;
 		setMinutes(minutes - 5);
 	};
+
+	useEffect(() => {
+		if (navigation.isFocused()) {
+			setIsStarted(false);
+			setBreakTime(false);
+			setProgress(1);
+			setMinutes(5);
+		}
+	}, [navigation]);
 
 	return (
 		<>
@@ -151,7 +161,7 @@ export const Timer = ({
 				<View style={styles.container}>
 					<View style={styles.countdown}>
 						<Countdown
-							minutes={5}
+							minutes={minutes}
 							isPaused={!isStarted}
 							onProgress={setProgress}
 							onEnd={onEnd}
@@ -195,7 +205,11 @@ export const Timer = ({
 						</>
 					)}
 					<View style={styles.clearSubjectWrapper}>
-						<TouchableOpacity onPress={() => navigation.goBack()}>
+						<TouchableOpacity
+							onPress={() => {
+								navigation.goBack();
+							}}
+						>
 							<Image
 								source={require("../../assets/icons/back-arrow.png")}
 							/>

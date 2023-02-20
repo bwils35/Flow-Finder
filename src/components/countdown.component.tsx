@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
 
 import { colors } from "../utils/colors";
@@ -27,18 +27,17 @@ export const Countdown = ({
 }: ICountdownProps) => {
 	const interval = React.useRef(null);
 
-	const [milliseconds, setMilliseconds] = useState<number>(null);
-
-	const { breakTime } = React.useContext(appContext);
+	const { breakTime, milliseconds, setMilliseconds } =
+		React.useContext(appContext);
 
 	const reset = () => setMilliseconds(minutesToMilliseconds(minutes));
 
 	const setBreakTimer = () => {
-		setMilliseconds(minutesToMilliseconds(0.1));
+		setMilliseconds(minutesToMilliseconds(5));
 	};
 
 	const countDown = () => {
-		setMilliseconds((time) => {
+		setMilliseconds((time: any) => {
 			if (time === 0 && !breakTime) {
 				clearInterval(interval.current);
 				onEnd(setBreakTimer);

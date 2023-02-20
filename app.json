@@ -28,7 +28,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.bwils35.flowfinder",
-      "versionCode": 5
+      "versionCode": 7
     },
     "androidNavigationBar": {
       "visible": "immersive"
