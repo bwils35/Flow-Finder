@@ -23,8 +23,8 @@ export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 				<View style={styles.aboutButton}>
 					<RoundedButton
 						size={50}
-						title="?"
-						onPress={() => navigation.navigate("About")}
+						title="back"
+						onPress={() => navigation.goBack()}
 					/>
 				</View>
 			</>
@@ -41,8 +41,8 @@ export const FocusHistory = ({ history, navigation }: IFocusHistoryProps) => {
 			<View style={styles.aboutButton}>
 				<RoundedButton
 					size={50}
-					title="?"
-					onPress={() => navigation.navigate("About")}
+					title="back"
+					onPress={() => navigation.goBack()}
 				/>
 			</View>
 		</View>

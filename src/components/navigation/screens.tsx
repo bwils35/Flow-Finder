@@ -7,6 +7,7 @@ import { FocusHistory } from "../../views/focus-history.view";
 import { Timer } from "../../views/timer.view";
 import { colors } from "../../utils/colors";
 import { appContext } from "../../context/context";
+import { Home } from "../../views/welcome.view";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,9 @@ export const Screens = () => {
 			}}
 		>
 			<Stack.Screen name="Home">
+				{({ navigation }) => <Home navigation={navigation} />}
+			</Stack.Screen>
+			<Stack.Screen name="Main">
 				{({ navigation }) => (
 					<>
 						<Focus navigation={navigation} />
