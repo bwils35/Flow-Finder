@@ -13,9 +13,14 @@ The technique involves breaking your work into timed intervals, typically 25 min
 -   Helpful progress tracking to monitor your productivity and stay on track towards your goals.
 -   Automatic break timer
 
+## **Demo**
+
+![demo](https://user-images.githubusercontent.com/59750669/220214763-ec98302c-2406-45ae-b05c-998d2292420f.gif)
+
+
 ## **Installation**
 
--   Follow this [link](https://expo.dev/accounts/bwils35/projects/flow-finder/builds/8a21b43f-21d3-446e-9b92-edd3369ee6bd) to install the app on your Android device or clone the repository and run the application on an emulated deivce.
+-   Follow this [link](https://expo.dev/accounts/bwils35/projects/flow-finder/builds/ece8058c-869f-46b4-b4b6-f36bab8f74b0) to install the app on your Android device or clone the repository and run the application on an emulated deivce.
 
 -   Once you have cloned the repository and installed the [Expo CLI](https://docs.expo.io/get-started/installation/), follow these [Android Studio instructions](https://docs.expo.io/workflow/android-studio-emulator/) or [iOS instructions](https://docs.expo.io/workflow/ios-simulator/) to run the app on an emulated device.
 
