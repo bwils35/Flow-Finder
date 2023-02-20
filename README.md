@@ -11,10 +11,22 @@ The technique involves breaking your work into timed intervals, typically 25 min
 -   Customizable work sessions to fit your individual needs.
 -   Simple and intuitive interface that allows you to start and stop your work sessions with just a few taps.
 -   Helpful progress tracking to monitor your productivity and stay on track towards your goals.
+-   Automatic break timer
 
 ## **Installation**
 
-To use FlowFinder, simply download the app from the App Store or Google Play Store.
+-   Follow this [link](https://expo.dev/accounts/bwils35/projects/flow-finder/builds/8a21b43f-21d3-446e-9b92-edd3369ee6bd) to install the app on your Android device or clone the repository and run the application on an emulated deivce.
+
+-   Once you have cloned the repository and installed the [Expo CLI](https://docs.expo.io/get-started/installation/), follow these [Android Studio instructions](https://docs.expo.io/workflow/android-studio-emulator/) or [iOS instructions](https://docs.expo.io/workflow/ios-simulator/) to run the app on an emulated device.
+
+*   you can install the dependencies by running `npm install` in the project directory:
+
+-   **Running on Simulator**:
+    If you are using a simulator or emulator, you may find the following Expo CLI keyboard shortcuts to be useful:
+
+*   Pressing **i** will open in an [iOS simulator](https://docs.expo.io/workflow/ios-simulator/).
+*   Pressing **a** will open in an [Android emulator or connected device](https://docs.expo.io/workflow/android-studio-emulator/).
+*   Pressing **w** will open in your browser. Expo supports all major browsers.
 
 ## **Usage**
 

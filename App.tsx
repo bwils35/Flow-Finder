@@ -2,12 +2,14 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import * as NavigationBar from "expo-navigation-bar";
 
 import { colors } from "./src/utils/colors";
 import ContextProvider from "./src/context/context";
 import { Screens } from "./src/components/navigation/screens";
 
 export default function App() {
+	NavigationBar.setVisibilityAsync("hidden");
 	return (
 		<ContextProvider>
 			<NavigationContainer>
