@@ -1,22 +1,13 @@
 import React, { useContext, useEffect } from "react";
-import {
-	View,
-	Text,
-	StyleSheet,
-	Vibration,
-	TouchableOpacity,
-	Image,
-} from "react-native";
-import { ProgressBar } from "react-native-paper";
+import { StyleSheet } from "react-native";
 import { useKeepAwake } from "expo-keep-awake";
 
 import { colors } from "../utils/colors";
 import { fontSizes, spacing } from "../utils/sizes";
 
-import { Countdown } from "../components/countdown.component";
-import { RoundedButton } from "../components/rounded-button.component";
-import { Timing } from "../components/timing.component";
 import { appContext } from "../context/context";
+import { TaskTimer } from "../components/timers/task-timer.component";
+import { BreakTimer } from "../components/timers/break-timer.component";
 
 interface ITimerProps {
 	focusSubject: string;
@@ -24,17 +15,6 @@ interface ITimerProps {
 	navigation: any;
 	originalTime: number;
 }
-
-const ONE_SECOND_IN_MS = 1000;
-
-const PATTERN = [
-	0.5 * ONE_SECOND_IN_MS,
-	1 * ONE_SECOND_IN_MS,
-	0.5 * ONE_SECOND_IN_MS,
-	1 * ONE_SECOND_IN_MS,
-	0.5 * ONE_SECOND_IN_MS,
-	1 * ONE_SECOND_IN_MS,
-];
 
 export const Timer = ({
 	originalTime,
@@ -44,44 +24,9 @@ export const Timer = ({
 }: ITimerProps) => {
 	useKeepAwake();
 
-	const { isStarted, setIsStarted } = useContext(appContext);
-
-	const {
-		minutes,
-		setMinutes,
-		breakTime,
-		setBreakTime,
-		progress,
-		setProgress,
-	} = React.useContext(appContext);
-
-	const onEnd = (setBreakTimer: () => void) => {
-		Vibration.vibrate(PATTERN);
-		setBreakTime(true);
-
-		setIsStarted(false);
-		setProgress(1);
-		setBreakTimer();
-		onTimerEnd(focusSubject, originalTime);
-	};
-
-	const onBreakEnd = (reset: () => void) => {
-		Vibration.vibrate(PATTERN);
-
-		setIsStarted(false);
-		setBreakTime(false);
-		setProgress(1);
-		reset();
-	};
-
-	const incrementTime = () => {
-		if (minutes === 55) return;
-		setMinutes(minutes + 5);
-	};
-	const decrementTime = () => {
-		if (minutes === 5) return;
-		setMinutes(minutes - 5);
-	};
+	const { setMinutes, breakTime, setBreakTime, setProgress, setIsStarted } =
+		useContext(appContext);
+	React.useContext(appContext);
 
 	useEffect(() => {
 		if (navigation.isFocused()) {
@@ -95,127 +40,17 @@ export const Timer = ({
 	return (
 		<>
 			{!breakTime ? (
-				<View style={styles.container}>
-					<View style={styles.countdown}>
-						<Countdown
-							minutes={minutes}
-							isPaused={!isStarted}
-							onProgress={setProgress}
-							onEnd={onEnd}
-							onBreakEnd={onBreakEnd}
-						/>
-						<View style={{ paddingTop: spacing.xxl }}>
-							<Text style={styles.title}>Focusing on:</Text>
-							<Text style={styles.task}>{focusSubject}</Text>
-						</View>
-					</View>
-					<View style={{ paddingTop: spacing.sm }}>
-						<ProgressBar
-							progress={progress}
-							style={styles.progress}
-							color={colors.black}
-						/>
-					</View>
-					{!isStarted && (
-						<View style={styles.timingWrapper}>
-							<Timing onChangeTime={setMinutes} />
-						</View>
-					)}
-					{!isStarted ? (
-						<View style={styles.buttonWrapper}>
-							<RoundedButton
-								title="- 5"
-								size={50}
-								onPress={decrementTime}
-							/>
-							<RoundedButton
-								title="Start"
-								onPress={() => setIsStarted(true)}
-							/>
-							<RoundedButton
-								title="+ 5"
-								size={50}
-								onPress={incrementTime}
-							/>
-						</View>
-					) : (
-						<>
-							<View style={styles.timingWrapper}></View>
-							<View style={styles.buttonWrapper}>
-								<RoundedButton
-									title="Pause"
-									onPress={() => setIsStarted(false)}
-								/>
-							</View>
-						</>
-					)}
-					<View style={styles.clearSubjectWrapper}>
-						<TouchableOpacity onPress={() => navigation.goBack()}>
-							<Image
-								source={require("../../assets/icons/back-arrow.png")}
-							/>
-						</TouchableOpacity>
-					</View>
-				</View>
+				<TaskTimer
+					originalTime={originalTime}
+					focusSubject={focusSubject}
+					onTimerEnd={onTimerEnd}
+					navigation={navigation}
+				/>
 			) : (
-				<View style={styles.container}>
-					<View style={styles.countdown}>
-						<Countdown
-							minutes={minutes}
-							isPaused={!isStarted}
-							onProgress={setProgress}
-							onEnd={onEnd}
-							onBreakEnd={onBreakEnd}
-						/>
-						<View style={{ paddingTop: spacing.xxl }}>
-							<Text style={styles.title}>Completed: </Text>
-							<Text style={styles.task}>{focusSubject}</Text>
-						</View>
-					</View>
-					<View style={{ paddingTop: spacing.sm }}>
-						<ProgressBar
-							progress={progress}
-							style={styles.progress}
-							color={colors.black}
-						/>
-					</View>
-					{!isStarted && (
-						<View style={styles.timingWrapper}>
-							<Text style={styles.title}>
-								Start a 5 minute break?
-							</Text>
-						</View>
-					)}
-					{!isStarted ? (
-						<View style={styles.buttonWrapper}>
-							<RoundedButton
-								title="Start"
-								onPress={() => setIsStarted(true)}
-							/>
-						</View>
-					) : (
-						<>
-							<View style={styles.timingWrapper}></View>
-							<View style={styles.buttonWrapper}>
-								<RoundedButton
-									title="Pause"
-									onPress={() => setIsStarted(false)}
-								/>
-							</View>
-						</>
-					)}
-					<View style={styles.clearSubjectWrapper}>
-						<TouchableOpacity
-							onPress={() => {
-								navigation.goBack();
-							}}
-						>
-							<Image
-								source={require("../../assets/icons/back-arrow.png")}
-							/>
-						</TouchableOpacity>
-					</View>
-				</View>
+				<BreakTimer
+					focusSubject={focusSubject}
+					navigation={navigation}
+				/>
 			)}
 		</>
 	);

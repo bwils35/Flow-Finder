@@ -1,45 +1,39 @@
 {
-  "expo": {
-    "name": "Flow-Finder",
-    "slug": "flow-finder",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "userInterfaceStyle": "light",
-    "icon": "./assets/images/adaptive-icon.png",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "package": "com.bradley.FlowFinder",
-        "versionCode": 0,
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.bwils35.flowfinder",
-      "versionCode": 7
-    },
-    "androidNavigationBar": {
-      "visible": "immersive"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "0fec6351-dfcd-4828-848a-7de8e5c21487"
-      }
-    }
-  }
+	"expo": {
+		"name": "Flow Finder",
+		"slug": "flow-finder",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"userInterfaceStyle": "light",
+		"icon": "./assets/images/adaptive-icon.png",
+		"splash": {
+			"image": "./assets/images/splash.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/images/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"permissions": ["VIBRATE"],
+			"package": "com.bwils35.flowfinder",
+			"versionCode": 7
+		},
+		"androidNavigationBar": {
+			"visible": "immersive"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "0fec6351-dfcd-4828-848a-7de8e5c21487"
+			}
+		}
+	}
 }

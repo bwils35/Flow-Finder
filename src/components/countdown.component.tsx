@@ -11,11 +11,11 @@ const minutesToMilliseconds = (min: number) => min * 1000 * 60;
 const formatTime = (time: number) => (time < 10 ? `0${time}` : time);
 
 export interface ICountdownProps {
-	minutes?: number;
+	minutes: number;
 	isPaused: boolean;
 	onProgress: (progress: number) => void;
-	onEnd: (setBreakTimer: () => void) => void;
-	onBreakEnd: (reset: () => void) => void;
+	onEnd?: (setBreakTimer: () => void) => void;
+	onBreakEnd?: (reset: () => void) => void;
 }
 
 export const Countdown = ({
